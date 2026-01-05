@@ -1,1 +1,2 @@
+- Your PWD is a **git worktree orchestration dir**, which is itself inside a bare checkout of the repository, e.g. `<bare-repo>/@/<worktree(s)>`, where the `@` directory is your PWD.
 - The full nix environment with all required packages can be used from this directory if needed; just cd into the worktree and use `nix develop -c ...`
