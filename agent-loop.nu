@@ -24,7 +24,16 @@ def main [
         let result = (opencode run "Carefully follow instructions in attached file." -m $model -f ../prompt.md | complete)
         $results = ($results | append { loop: $i, exit: $result.exit_code, out: ($result.stdout | str trim) })
     }
+    cd ..
 
     print $"($ICON_COPILOT)  ($worktree): ($loops) loops"
     for r in $results { print $"($ICON_COPILOT)  ($r.loop) exit=($r.exit)\n($r.out)\n" }
+
+    # Message for ORCHESTRATOR agent
+    let follow_up = (open follow-up.md)
+    print $"
+Instructions for main ORCHESTRATOR agent:
+
+($follow_up)
+"
 }
