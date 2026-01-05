@@ -19,6 +19,9 @@ def main [] {
         
         if $etype == "tool_use" {
             let tool = ($event | get -o part.tool | default "?")
+            # Skip noisy tools
+            if $tool in ["todowrite", "todoread"] { return null }
+            
             let status = ($event | get -o part.state.status | default "?")
             let input = ($event | get -o part.state.input | default {})
             
