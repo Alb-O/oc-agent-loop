@@ -1,0 +1,1 @@
+- The full nix environment with all required packages can be used from this directory if needed; just cd into the worktree and use `nix develop -c ...`

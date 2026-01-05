@@ -32,7 +32,7 @@ Examples:
 
 ```bash
 nu agent-loop.nu main                           # 2 loops, default AI model
-nu agent-loop.nu feature-branch -l 3            # 3 loops
+nu agent-loop.nu feature-branch -l 3            # 3 loops (do not go above 3, will usually timeout past this amount)
 nu agent-loop.nu test -m opencode/big-pickle    # Free model for testing only. For real work, use the default set by the script.
 ```
 
