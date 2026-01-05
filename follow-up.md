@@ -1,8 +1,8 @@
-Inspect and critique the work done by the agent loop. Any concerns or feedback must be amended to the task file so future generations make better decisions.
+1. Inspect and critique the work done by the agent loop. Any concerns or feedback must be amended to the task file so future generations make better decisions. It is important to 'steer' the agents in the right direction and minimize code smells. Be skeptical of code architecture. If an implementation looks suboptimal or could be refactored, **amend the task file with new tasks for future agents to work through**.
 
-Additionally, the agent's work must be reviewd for 'code churn' and cleaned up (unnecessary content in the repository):
+2. Additionally, the agent's work must be reviewd for 'code churn' and cleaned up (unnecessary content in the repository). This can be quickly cleaned up manually if only small violations, or a new task may be added for the next agent run.
 
-Start by inspecting the git diffs made by the agents. Separate behavioural changes from churn. As you review, actively avoid Rust-shaped noise:
+Inspect the git diffs made by the agents. Separate behavioural changes from churn. As you review, actively avoid Rust-shaped noise:
 
 ✗ Inline comments that don’t match the project’s tone or that narrate obvious control flow.
 ✗ Defensive branches that assume impossible states on trusted codepaths (extra `match _ =>`, redundant `if let Some` guards, spurious fallbacks) unless you can point to a concrete invariant break.
