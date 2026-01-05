@@ -24,10 +24,10 @@ def main [
         print $"($ICON_COPILOT)  Loop ($i)/($loops) starting in ($worktree)..."
         print $"(ansi cyan)($separator)(ansi reset)"
         
-        # Run opencode directly - stdout streams live to terminal
+        # Run opencode with JSON output, filter for clean monitoring
         # Auto-approve all permission requests
         with-env { OPENCODE_PERMISSION: '{ "*": "allow" }' } {
-            opencode run "Carefully follow instructions in attached file." -m $model --variant "high" -f ../prompt.md
+            opencode run "Carefully follow instructions in attached file." -m $model --variant "high" --format json -f ../prompt.md | nu ../filter-opencode.nu
         }
         let exit_code = $env.LAST_EXIT_CODE? | default 0
         
