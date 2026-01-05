@@ -21,7 +21,7 @@ def main [
     mut results = []
     for i in 1..$loops {
         print $"($ICON_COPILOT)  ($i)/($loops) ($worktree)"
-        let result = (opencode run "Carefully follow instructions in attached file." -m $model -f ../prompt.md | complete)
+        let result = (opencode run "Carefully follow instructions in attached file." -m $model --variant "high" -f ../prompt.md | complete)
         $results = ($results | append { loop: $i, exit: $result.exit_code, out: ($result.stdout | str trim) })
     }
     cd ..
