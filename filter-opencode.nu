@@ -3,8 +3,9 @@
 
 # Shorten paths by removing common prefixes
 def shorten-path []: string -> string {
-    $in 
-    | str replace -r '^/home/[^/]+/@/dev/[^/]+/@/' '' 
+    $in
+    | str replace -r '^/home/[^/]+/@/dev/[^/]+/@/' ''
+    | str replace -r '^[^/]+/' ''
     | str replace -r '^/home/[^/]+/' '~/'
 }
 
@@ -13,18 +14,18 @@ def main [] {
         # Skip empty lines or non-JSON
         if ($line | str trim | is-empty) { return null }
         if not ($line | str starts-with "{") { return null }
-        
+
         let event = try { $line | from json } catch { return null }
         let etype = ($event | get -o type | default "")
-        
+
         if $etype == "tool_use" {
             let tool = ($event | get -o part.tool | default "?")
             # Skip noisy tools
             if $tool in ["todowrite", "todoread"] { return null }
-            
+
             let status = ($event | get -o part.state.status | default "?")
             let input = ($event | get -o part.state.input | default {})
-            
+
             # Get description based on tool type
             let desc = if $tool == "bash" {
                 let d = ($input | get -o description | default "")
@@ -47,10 +48,10 @@ def main [] {
             } else {
                 ""
             }
-            
+
             let icon = if $status == "completed" { "✓" } else if $status == "running" { "…" } else { "○" }
             let color = if $status == "completed" { "green" } else if $status == "running" { "yellow" } else { "cyan" }
-            
+
             print $"(ansi $color)($icon) ($tool | fill -w 6)(ansi reset) ($desc)"
         } else if $etype == "text" {
             # Agent's text output/thoughts - show first line only

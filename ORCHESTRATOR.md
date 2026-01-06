@@ -26,7 +26,9 @@ cp prompt.tmpl.md prompt.md
 nu agent-loop.nu <worktree> [-l loops] [-m model]
 ```
 
-Make a new git worktree for new specs and tasks, unless continuing from being interrupted in a session. Do not run agents in the `main` tree. Use the format `01A-<short-desc>` for the worktree/branch name, matching the task-XXX.md code.
+**Do NOT manually create worktrees using git CLI.** The script creates them automatically from inside the `main` worktree, ensuring the new branch starts from main's actual HEAD.
+
+A new git worktree should be created for new specs and tasks, unless continuing from being interrupted in a session. Do not run agents in the `main` tree. Use the format `01A-<short-desc>` for the worktree/branch name, matching the task-XXX.md code.
 
 Examples:
 
